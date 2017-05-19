@@ -1,0 +1,112 @@
+<?xml version="1.0"?>
+<NL5>
+  <c>======================================</c>
+  <c> CAUTION: DO NOT MODIFY THIS FILE !!! </c>
+  <c>     ...if you don't know how...      </c>
+  <c>======================================</c>
+  <Version ver="2" rev="2" build="3" date="11/08/2016" ID="511361959" />
+  <Doc display="3" save="0" activeSheet="0">
+    <Properties title="No+title" revision="1.0" author="Unknown" project="Unknown" organization="Unknown" comments="" created="11%2f10%2f2014+5%3a32%3a27+PM" modified="5%2f19%2f2017+3%3a19%3a33+PM" />
+    <CirWin state="2" />
+    <Cmps>
+      <Cmp type="I_I" id="8" name="I1" file_name="" view="0" node0="0" node1="8" model="Sin" v="0">
+        <Signal u0="0" u1="300" p="1" w="500e-3" s="0" r="0" f="0" d="0" ph="0" pwl="0%2c0" function="10" file="" trace="" c="0" />
+      </Cmp>
+      <Cmp type="I_CCCS" id="13" name="I2" file_name="" view="0" node0="0" node1="10" node2="0" node3="8" model="Linear" k="1" f="x" fs="1" ic="0" v0="0" v1="10" dfdv="1" phase="0" vcotype="0" thr="5" width="100e-3" max="1" />
+      <Cmp type="O_OD" id="1" name="O1" file_name="" view="0" node0="1" node1="2" node2="3" model="OpAmp" k="2e+6" f1="6e+6" hi="3.3" lo="0" hyst="100e-3" f="x" fs="1" ic="" comp_ic="0" func_ic="0" delay="0" />
+      <Cmp type="R_R" id="2" name="R1" file_name="" view="0" node0="1" node1="10" model="R" r="1e+3" fs="1" />
+      <Cmp type="R_R" id="3" name="R2" file_name="" view="0" node0="3" node1="0" model="R" r="1e+3" fs="1" />
+      <Cmp type="R_R" id="4" name="R3" file_name="" view="0" node0="1" node1="6" model="R" r="4.3e+3" fs="1" />
+      <Cmp type="R_R" id="5" name="R4" file_name="" view="0" node0="2" node1="3" model="R" r="3.3e+3" fs="1" />
+      <Cmp type="R_R" id="7" name="R5" file_name="" view="0" node0="0" node1="10" model="R" r="10" fs="1" />
+      <Cmp type="R_R" id="12" name="R6" file_name="" view="0" node0="6" node1="5" model="R" r="3.3e+3" fs="1" />
+      <Cmp type="V_V" id="6" name="V1" file_name="" view="0" node0="0" node1="5" model="V" v="3.3" />
+      <Cmp type="label" id="10" name="in-" file_name="" view="0" node0="3" model="Label" ic="" r="0" v="10" />
+      <Cmp type="label" id="11" name="in%2b" file_name="" view="0" node0="1" model="Label" ic="" r="0" v="10" />
+      <Cmp type="label" id="9" name="out" file_name="" view="0" node0="2" model="Label" ic="" r="0" v="10" />
+    </Cmps>
+    <Sheet name="Sheet1">
+      <VC size="60" center="-3,0" />
+      <Curs p="2,-3" dir="-1" />
+      <Pcts>
+        <Pct type="label" undo_id="1" id="11" p="-3,0" text0="16,-24" text1="16,24" textdir="0" />
+        <Pct type="label" undo_id="2" id="9" p="3,1" text0="16,-24" text1="16,24" textdir="0" />
+        <Pct type="label" undo_id="3" id="10" p="-3,2" text0="16,-24" text1="16,24" textdir="0" />
+        <Pct type="cmp" undo_id="4" id="6" p="-7,-5" dir="1" mir="0" view="0" text0="32,-30" text1="32,30" textdir="0" subcir="true" />
+        <Pct type="cmp" undo_id="5" id="12" p="-6,-5" dir="0" mir="0" view="0" text0="32,-20" text1="32,20" textdir="0" subcir="true" />
+        <Pct type="cmp" undo_id="6" id="4" p="-3,-5" dir="0" mir="0" view="0" text0="32,-20" text1="32,20" textdir="0" subcir="true" />
+        <Pct type="cmp" undo_id="7" id="8" p="-12,0" dir="1" mir="0" view="0" text0="32,-30" text1="32,30" textdir="0" subcir="true" />
+        <Pct type="cmp" undo_id="34" id="13" p="-9,0" dir="1" mir="0" view="0" text0="32,-30" text1="32,42" textdir="0" subcir="true" />
+        <Pct type="cmp" undo_id="8" id="7" p="-6,0" dir="1" mir="0" view="0" text0="32,-20" text1="34,46" textdir="0" subcir="true" />
+        <Pct type="cmp" undo_id="9" id="2" p="-5,0" dir="0" mir="0" view="0" text0="32,-20" text1="32,20" textdir="0" subcir="true" />
+        <Pct type="cmp" undo_id="10" id="1" p="0,0" dir="0" mir="0" view="0" text0="70,-18" text1="70,0" textdir="0" subcir="true" />
+        <Pct type="cmp" undo_id="11" id="3" p="-5,2" dir="0" mir="0" view="0" text0="32,-20" text1="32,20" textdir="0" subcir="true" />
+        <Pct type="cmp" undo_id="12" id="5" p="1,5" dir="0" mir="0" view="0" text0="32,-20" text1="32,20" textdir="0" subcir="true" />
+        <Pct type="gnd" undo_id="13" p="-7,-3" dir="1" />
+        <Pct type="gnd" undo_id="14" p="-12,2" dir="1" />
+        <Pct type="gnd" undo_id="15" p="-6,5" dir="1" />
+        <Pct type="dot" undo_id="16" p="-6,0" />
+        <Pct type="dot" undo_id="17" p="-2,0" />
+        <Pct type="dot" undo_id="68" p="-12,2" />
+        <Pct type="dot" undo_id="18" p="-6,2" />
+        <Pct type="line" undo_id="19" p0="-7,-5" p1="-6,-5" />
+        <Pct type="line" undo_id="20" p0="-4,-5" p1="-3,-5" />
+        <Pct type="line" undo_id="21" p0="-1,-5" p1="-1,-3" />
+        <Pct type="line" undo_id="22" p0="-2,-3" p1="-1,-3" />
+        <Pct type="line" undo_id="23" p0="-2,-3" p1="-2,0" />
+        <Pct type="line" undo_id="51" p0="-12,0" p1="-10,0" />
+        <Pct type="line" undo_id="42" p0="-9,0" p1="-6,0" />
+        <Pct type="line" undo_id="66" p0="-6,0" p1="-5,0" />
+        <Pct type="line" undo_id="26" p0="-3,0" p1="-2,0" />
+        <Pct type="line" undo_id="67" p0="-2,0" p1="0,0" />
+        <Pct type="line" undo_id="28" p0="3,1" p1="3,5" />
+        <Pct type="line" undo_id="48" p0="-12,2" p1="-10,2" />
+        <Pct type="line" undo_id="45" p0="-9,2" p1="-6,2" />
+        <Pct type="line" undo_id="65" p0="-6,2" p1="-5,2" />
+        <Pct type="line" undo_id="30" p0="-6,2" p1="-6,5" />
+        <Pct type="line" undo_id="31" p0="-3,2" p1="0,2" />
+        <Pct type="line" undo_id="32" p0="-3,2" p1="-3,5" />
+        <Pct type="line" undo_id="33" p0="-3,5" p1="1,5" />
+      </Pcts>
+    </Sheet>
+    <Calc zero="10e-12" kmin="10e-3" nsr="false" ndo="false" os="false" low="0" high="5" thr="2.5" zparam="" />
+    <Tran storage="1" last="false" storage_shift="true">
+      <Cursors enabled="false" left="0" right="10" active="false" />
+      <Table enabled="true" tran_table="false" time_table="true" time_header="false" vars="2047">
+        <Width w0="4" w1="4" w2="4" w3="4" w4="4" w5="4" w6="4" w7="4" w8="4" w9="4" w10="4" w11="4" />
+        <TranTable l="539111468" t="1684827970" w="0" h="577074028" usetran="true" />
+      </Table>
+      <TranWin data_points="false" digital_labels="true" numbers="true" preview="false" preview_size="40" digital="false" digital_ratio="500e-3" split="false" legend="true" legend_x="1" legend_y="0" horgrid="true" vertgrid="true" vertscale="false" status_panels="7" phase="0" phase_y="600e-3" state="0" l="25" t="25" w="1162" h="406" table_height="120" />
+      <Settings start="0" screen="10" step="1e-3" dispstep="1e-3" savebeforestart="true" sampling="0" rununtil="false" rununtilf="" />
+      <Annotations />
+      <Scale start="0" screen="10" scale="1" mid="0" />
+      <Traces activeTrace="1">
+        <Trace type="0" id="9" color="0,255,0" mode="0" name="V(out)" tracename="" expr="V(out)" dig_threshold="2.5" bus_format="2" bus_bits="0" bus_content="false" bus_fp="0" scale="10" mid="0" scale_history="" shift="0" width="1" phwidth="1" plot="true" table="true" storage="true" out1="0" />
+        <Trace type="0" id="11" color="0,255,255" mode="0" name="V(in%2b)" tracename="" expr="V(in%2b)" dig_threshold="2.5" bus_format="2" bus_bits="0" bus_content="false" bus_fp="0" scale="10" mid="0" scale_history="" shift="0" width="1" phwidth="1" plot="true" table="true" storage="true" out1="0" />
+        <Trace type="0" id="10" color="255,255,0" mode="0" name="V(in-)" tracename="" expr="V(in-)" dig_threshold="2.5" bus_format="2" bus_bits="0" bus_content="false" bus_fp="0" scale="10" mid="0" scale_history="" shift="0" width="1" phwidth="1" plot="true" table="true" storage="true" out1="0" />
+        <Trace type="1" id="8" color="255,0,255" mode="0" name="I(I1)" tracename="" expr="I(I1)" dig_threshold="2.5" bus_format="2" bus_bits="0" bus_content="false" bus_fp="0" scale="10" mid="0" scale_history="" shift="0" width="1" phwidth="1" plot="true" table="true" storage="true" out1="0" />
+      </Traces>
+      <Log>Transient+log%0aStarted+%3a+4%2f25%2f2017+1%3a21%3a24+PM%0aFile+%3a+C%3a%5cWorkspace%5cTraction%5cBLDC%5cTrunk%5cHardware%5cWorkbook%5ccurrent+shunt.nl5%0a0+%3a+Init%0aComponents+%3d+12%0aNodes+%3d+6%0aRank+%3d+10%0aStopped+%3a+5%2f1%2f2017+10%3a09%3a09+AM</Log>
+    </Tran>
+    <Freq storage="1" last="false" storage_shift="true">
+      <Cursors enabled="true" left="100" right="10e+3" active="true" />
+      <Table enabled="false" tran_table="false" time_table="true" time_header="false" vars="2111">
+        <Width w0="4" w1="4" w2="4" w3="4" w4="4" w5="4" w6="4" w7="4" w8="4" w9="4" w10="4" w11="4" />
+        <TranTable l="68" t="0" w="0" h="0" usetran="true" />
+      </Table>
+      <TranWin data_points="false" digital_labels="true" numbers="true" preview="false" preview_size="40" digital="false" digital_ratio="500e-3" split="false" legend="true" legend_x="1" legend_y="0" horgrid="true" vertgrid="true" vertscale="false" status_panels="5" phase="2" phase_y="600e-3" state="0" l="0" t="0" w="0" h="0" table_height="120" />
+      <Settings type="0" list="" test="" from="1e-3" to="1e+3" points="500" scale="0" id="-1" z0re="50" z0im="0" alg="0" dcop="false" faf="0.1" fts="1e-3" fhl="true" fmr="10" fsh="false" fpop="true" zperiod="1" zc="0" zs="0" />
+      <Annotations />
+      <Scale pht="180" phb="-180" top="100" bot="100e-6" left="1" right="1e+6" vlog="true" db="true" hlog="true" />
+      <Traces activeTrace="-1" />
+      <Log />
+    </Freq>
+    <Sweep Name="" From="1.0" To="1.0" Step="0.0" Type="0" List="" />
+    <Optimization N="4" tran="true" ac="false" run="true">
+      <r0 n="" v="" s="" />
+      <r1 n="" v="" s="" />
+      <r2 n="" v="" s="" />
+      <r3 n="" v="" s="" />
+    </Optimization>
+  </Doc>
+</NL5>
