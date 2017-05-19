@@ -584,9 +584,9 @@ void HAL_setupFaults(HAL_Handle handle)
     {
       PWM_enableTripZoneSrc(obj->pwmHandle[cnt],PWM_TripZoneSrc_CycleByCycle_TZ6_NOT);
 
-      PWM_enableTripZoneSrc(obj->pwmHandle[cnt],PWM_TripZoneSrc_CycleByCycle_TZ3_NOT);
+//      PWM_enableTripZoneSrc(obj->pwmHandle[cnt],PWM_TripZoneSrc_CycleByCycle_TZ3_NOT);
 
-      PWM_enableTripZoneSrc(obj->pwmHandle[cnt],PWM_TripZoneSrc_CycleByCycle_TZ2_NOT);
+//      PWM_enableTripZoneSrc(obj->pwmHandle[cnt],PWM_TripZoneSrc_CycleByCycle_TZ2_NOT);
 
       // What do we want the OST/CBC events to do?
       // TZA events can force EPWMxA
@@ -803,11 +803,11 @@ void HAL_setParams(HAL_Handle handle,const USER_Params *pUserParams)
 #endif
 
   // setup the spiA
-  HAL_setupSpiA(handle);
+//  HAL_setupSpiA(handle);
 
 
   // setup the spiB
-  HAL_setupSpiB(handle);
+//  HAL_setupSpiB(handle);
 
 
   // setup the PWM DACs
@@ -820,7 +820,7 @@ void HAL_setParams(HAL_Handle handle,const USER_Params *pUserParams)
 
 
   // setup the drv8301 interface
-  HAL_setupGate(handle);
+//  HAL_setupGate(handle);
 
 
   // set the default current bias
@@ -978,24 +978,33 @@ void HAL_setupAdcs(HAL_Handle handle)
   ADC_setSocSampleDelay(obj->adcHandle,ADC_SocNumber_3,ADC_SocSampleDelay_9_cycles);
 
   // ADC-Vhb1
-  ADC_setSocChanNumber(obj->adcHandle,ADC_SocNumber_4,ADC_SocChanNumber_B1);
+  ADC_setSocChanNumber(obj->adcHandle,ADC_SocNumber_4,ADC_SocChanNumber_A7);
   ADC_setSocTrigSrc(obj->adcHandle,ADC_SocNumber_4,ADC_SocTrigSrc_EPWM1_ADCSOCA);
   ADC_setSocSampleDelay(obj->adcHandle,ADC_SocNumber_4,ADC_SocSampleDelay_9_cycles);
 
   // ADC-Vhb2
-  ADC_setSocChanNumber(obj->adcHandle,ADC_SocNumber_5,ADC_SocChanNumber_A2);
+  ADC_setSocChanNumber(obj->adcHandle,ADC_SocNumber_5,ADC_SocChanNumber_B1);
   ADC_setSocTrigSrc(obj->adcHandle,ADC_SocNumber_5,ADC_SocTrigSrc_EPWM1_ADCSOCA);
   ADC_setSocSampleDelay(obj->adcHandle,ADC_SocNumber_5,ADC_SocSampleDelay_9_cycles);
 
   // ADC-Vhb3
-  ADC_setSocChanNumber(obj->adcHandle,ADC_SocNumber_6,ADC_SocChanNumber_B2);
+  ADC_setSocChanNumber(obj->adcHandle,ADC_SocNumber_6,ADC_SocChanNumber_A2);
   ADC_setSocTrigSrc(obj->adcHandle,ADC_SocNumber_6,ADC_SocTrigSrc_EPWM1_ADCSOCA);
   ADC_setSocSampleDelay(obj->adcHandle,ADC_SocNumber_6,ADC_SocSampleDelay_9_cycles);
 
   // VDCBUS
-  ADC_setSocChanNumber(obj->adcHandle,ADC_SocNumber_7,ADC_SocChanNumber_A7);
+  ADC_setSocChanNumber(obj->adcHandle,ADC_SocNumber_7,ADC_SocChanNumber_B2);
   ADC_setSocTrigSrc(obj->adcHandle,ADC_SocNumber_7,ADC_SocTrigSrc_EPWM1_ADCSOCA);
   ADC_setSocSampleDelay(obj->adcHandle,ADC_SocNumber_7,ADC_SocSampleDelay_9_cycles);
+
+  // Throttle Potentiometer // Configure it so that ADCINT1 will trigger a potentiometer conversion
+  ADC_setSocChanNumber(obj->adcHandle,ADC_SocNumber_8,ADC_SocChanNumber_B5);
+  ADC_setupSocTrigSrc(obj->adcHandle, ADC_SocNumber_8, ADC_Int1TriggersSOC);
+  ADC_setSocSampleDelay(obj->adcHandle,ADC_SocNumber_8,ADC_SocSampleDelay_9_cycles);
+
+  ADC_setSocChanNumber(obj->adcHandle,ADC_SocNumber_9,ADC_SocChanNumber_A3);
+  ADC_setupSocTrigSrc(obj->adcHandle, ADC_SocNumber_9, ADC_Int1TriggersSOC);
+  ADC_setSocSampleDelay(obj->adcHandle,ADC_SocNumber_9,ADC_SocSampleDelay_9_cycles);
 #endif
   return;
 } // end of HAL_setupAdcs() function
@@ -1117,25 +1126,25 @@ void HAL_setupGpios(HAL_Handle handle)
   GPIO_setMode(obj->gpioHandle,GPIO_Number_13,GPIO_13_Mode_GeneralPurpose);
 
   // SPIB CLK
-  GPIO_setMode(obj->gpioHandle,GPIO_Number_14,GPIO_14_Mode_SPICLKB);
+  GPIO_setMode(obj->gpioHandle,GPIO_Number_14,GPIO_14_Mode_GeneralPurpose);//SPICLKB);
 
   // UARTB RX
-  GPIO_setMode(obj->gpioHandle,GPIO_Number_15,GPIO_15_Mode_SCIRXDB);
+  GPIO_setMode(obj->gpioHandle,GPIO_Number_15,GPIO_15_Mode_GeneralPurpose);//SCIRXDB);
 
   // Set Qualification Period for GPIO16-23, 5*2*(1/90MHz) = 0.11us
   GPIO_setQualificationPeriod(obj->gpioHandle,GPIO_Number_16,5);
 
   // SPIA SIMO
-  GPIO_setMode(obj->gpioHandle,GPIO_Number_16,GPIO_16_Mode_SPISIMOA);
+  GPIO_setMode(obj->gpioHandle,GPIO_Number_16,GPIO_16_Mode_GeneralPurpose);//GeneralPurpose);//SPISIMOA);
 
   // SPIA SOMI
-  GPIO_setMode(obj->gpioHandle,GPIO_Number_17,GPIO_17_Mode_SPISOMIA);
+  GPIO_setMode(obj->gpioHandle,GPIO_Number_17,GPIO_17_Mode_GeneralPurpose);//SPISOMIA);
 
   // SPIA CLK
-  GPIO_setMode(obj->gpioHandle,GPIO_Number_18,GPIO_18_Mode_SPICLKA);
+  GPIO_setMode(obj->gpioHandle,GPIO_Number_18,GPIO_18_Mode_GeneralPurpose);//SPICLKA);
 
   // SPIA CS
-  GPIO_setMode(obj->gpioHandle,GPIO_Number_19,GPIO_19_Mode_SPISTEA_NOT);
+  GPIO_setMode(obj->gpioHandle,GPIO_Number_19,GPIO_19_Mode_GeneralPurpose);//SPISTEA_NOT);
   
 #ifdef QEP
   // EQEP1A
@@ -1167,22 +1176,22 @@ void HAL_setupGpios(HAL_Handle handle)
 #endif
 
   // SPIB SIMO
-  GPIO_setMode(obj->gpioHandle,GPIO_Number_24,GPIO_24_Mode_SPISIMOB);
+  GPIO_setMode(obj->gpioHandle,GPIO_Number_24,GPIO_24_Mode_GeneralPurpose);//SPISIMOB);
 
   // SPIB SOMI
-  GPIO_setMode(obj->gpioHandle,GPIO_Number_25,GPIO_25_Mode_SPISOMIB);
+  GPIO_setMode(obj->gpioHandle,GPIO_Number_25,GPIO_25_Mode_GeneralPurpose);//SPISOMIB);
 
   // GPIO
   GPIO_setMode(obj->gpioHandle,GPIO_Number_26,GPIO_26_Mode_GeneralPurpose);
 
   // SPIB CS
-  GPIO_setMode(obj->gpioHandle,GPIO_Number_27,GPIO_27_Mode_SPISTEB_NOT);
+  GPIO_setMode(obj->gpioHandle,GPIO_Number_27,GPIO_27_Mode_GeneralPurpose);//SPISTEB_NOT);
 
   // OCTWn
-  GPIO_setMode(obj->gpioHandle,GPIO_Number_28,GPIO_28_Mode_TZ2_NOT);
+//  GPIO_setMode(obj->gpioHandle,GPIO_Number_28,GPIO_28_Mode_TZ2_NOT);
 
   // FAULTn
-  GPIO_setMode(obj->gpioHandle,GPIO_Number_29,GPIO_29_Mode_TZ3_NOT);
+//  GPIO_setMode(obj->gpioHandle,GPIO_Number_29,GPIO_29_Mode_TZ3_NOT);
 
   // CAN RX
   GPIO_setMode(obj->gpioHandle,GPIO_Number_30,GPIO_30_Mode_CANRXA);
@@ -1191,10 +1200,10 @@ void HAL_setupGpios(HAL_Handle handle)
   GPIO_setMode(obj->gpioHandle,GPIO_Number_31,GPIO_31_Mode_CANTXA);
 
   // I2C Data
-  GPIO_setMode(obj->gpioHandle,GPIO_Number_32,GPIO_32_Mode_SDAA);
+  GPIO_setMode(obj->gpioHandle,GPIO_Number_32,GPIO_32_Mode_GeneralPurpose);//SDAA);
 
   // I2C Clock
-  GPIO_setMode(obj->gpioHandle,GPIO_Number_33,GPIO_33_Mode_SCLA);
+  GPIO_setMode(obj->gpioHandle,GPIO_Number_33,GPIO_33_Mode_GeneralPurpose);//SCLA);
 
   // LED D9
   GPIO_setMode(obj->gpioHandle,GPIO_Number_34,GPIO_34_Mode_GeneralPurpose);
@@ -1230,15 +1239,15 @@ void HAL_setupGpios(HAL_Handle handle)
   // Set Qualification Period for GPIO50-55, 5*2*(1/90MHz) = 0.11us
   GPIO_setQualificationPeriod(obj->gpioHandle,GPIO_Number_50,5);
 
-  // DRV8301 Enable Gate
+  // Enable Gate
   GPIO_setMode(obj->gpioHandle,GPIO_Number_50,GPIO_50_Mode_GeneralPurpose);
   GPIO_setLow(obj->gpioHandle,GPIO_Number_50);
   GPIO_setDirection(obj->gpioHandle,GPIO_Number_50,GPIO_Direction_Output);
 
-  // DRV8301 DC Calibration
+  // OCP signal input
   GPIO_setMode(obj->gpioHandle,GPIO_Number_51,GPIO_51_Mode_GeneralPurpose);
   GPIO_setLow(obj->gpioHandle,GPIO_Number_51);
-  GPIO_setDirection(obj->gpioHandle,GPIO_Number_51,GPIO_Direction_Output);
+  GPIO_setDirection(obj->gpioHandle,GPIO_Number_51,GPIO_Direction_Input);
 
   // DRV8301 Enable Gate
   GPIO_setMode(obj->gpioHandle,GPIO_Number_52,GPIO_52_Mode_GeneralPurpose);
@@ -1280,7 +1289,7 @@ void HAL_setupGpios(HAL_Handle handle)
   GPIO_setMode(obj->gpioHandle,GPIO_Number_57,GPIO_57_Mode_GeneralPurpose);
 
   // UARTB TX
-  GPIO_setMode(obj->gpioHandle,GPIO_Number_58,GPIO_58_Mode_SCITXDB);
+  GPIO_setMode(obj->gpioHandle,GPIO_Number_58,GPIO_58_Mode_GeneralPurpose);//SCITXDB);
 
   return;
 }  // end of HAL_setupGpios() function
@@ -1417,6 +1426,7 @@ void HAL_setupPwms(HAL_Handle handle,
 
   // turns off the outputs of the EPWM peripherals which will put the power switches
   // into a high impedance state.
+  GPIO_setLow(obj->gpioHandle,(GPIO_Number_e)HAL_Gpio_drv_en);
   PWM_setOneShotTrip(obj->pwmHandle[PWM_Number_1]);
   PWM_setOneShotTrip(obj->pwmHandle[PWM_Number_2]);
   PWM_setOneShotTrip(obj->pwmHandle[PWM_Number_3]);

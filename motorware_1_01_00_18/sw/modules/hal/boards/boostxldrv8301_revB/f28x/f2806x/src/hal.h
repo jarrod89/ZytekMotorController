@@ -67,7 +67,7 @@ extern "C" {
 // the defines
 
 //! \brief Defines that a DRV8301 chip SPI port is used on the board.
-#define DRV8301_SPI
+//#define DRV8301_SPI
 
 #define Device_cal (void   (*)(void))0x3D7C80
 
@@ -136,6 +136,13 @@ extern "C" {
 // **************************************************************************
 // the typedefs
 
+//Zytek control board gate enable pins
+typedef enum
+{
+//  HAL_Gpio_LED2=GPIO_Number_0   //!< GPIO pin number.
+  HAL_Gpio_drv_en=GPIO_Number_50,
+  HAL_Gpio_OCP_Latch=GPIO_Number_51
+} HAL_Enable_e;
 
 //! \brief Enumeration for the QEP setup
 //!
@@ -198,6 +205,17 @@ extern interrupt void mainISR(void);
 // **************************************************************************
 // the function prototypes
 
+//! \brief Reads the Potentiometer
+//! \param[in] handle The hardware abstraction layer (HAL) handle
+//! \return The potentiometer value from _IQ(-1.0) to _IQ(1.0)
+static inline _iq HAL_readPotentiometerData(HAL_Handle handle)
+{
+    HAL_Obj *obj = (HAL_Obj *)handle;
+    _iq value;
+    // convert potentiometer from IQ12 to IQ24.
+    value = _IQ12toIQ((_iq)ADC_readResult(obj->adcHandle,ADC_ResultNumber_8));
+    return(value);
+} // end of HAL_readPotentiometerData() function
 
 //! \brief     Acknowledges an interrupt from the ADC so that another ADC interrupt can 
 //!            happen again.
@@ -287,6 +305,8 @@ extern void HAL_disableWdog(HAL_Handle handle);
 static inline void HAL_disablePwm(HAL_Handle handle)
 {
   HAL_Obj *obj = (HAL_Obj *)handle;
+  // set GPIO Low
+  GPIO_setLow(obj->gpioHandle,(GPIO_Number_e)HAL_Gpio_drv_en);
 
   PWM_setOneShotTrip(obj->pwmHandle[PWM_Number_1]);
   PWM_setOneShotTrip(obj->pwmHandle[PWM_Number_2]);
@@ -329,6 +349,8 @@ extern void HAL_enableDrv(HAL_Handle handle);
 static inline void HAL_enablePwm(HAL_Handle handle)
 {
   HAL_Obj *obj = (HAL_Obj *)handle;
+  // set GPIO high
+  GPIO_setHigh(obj->gpioHandle,(GPIO_Number_e)HAL_Gpio_drv_en);
 
   PWM_clearOneShotTrip(obj->pwmHandle[PWM_Number_1]);
   PWM_clearOneShotTrip(obj->pwmHandle[PWM_Number_2]);
@@ -1072,7 +1094,7 @@ static inline void HAL_updateAdcBias(HAL_Handle handle)
     {
       bias = HAL_getBias(handle,HAL_SensorType_Current,cnt);
       
-      bias += OFFSET_getOffset(obj->offsetHandle_I[cnt]);
+      bias -= OFFSET_getOffset(obj->offsetHandle_I[cnt]);
 
       HAL_setBias(handle,HAL_SensorType_Current,cnt,bias);
     }
