@@ -253,10 +253,10 @@ void main(void)
 //  gDacData.ptrData[2] = &gPwmData.Tabc.value[2];
 //  gDacData.ptrData[3] = &gAdcData.V.value[0];
 
-  gDacData.ptrData[0] = &angle_gen.Angle_pu;
-  gDacData.ptrData[1] = &gAdcData.I.value[0];
-  gDacData.ptrData[2] = &gPwmData.Tabc.value[0];
-  gDacData.ptrData[3] = &gAdcData.V.value[0];
+  gDacData.ptrData[0] = &angle_gen.Angle_pu;//
+  gDacData.ptrData[1] = &angle_gen.Angle_pu;//&gAdcData.V.value[0];//&gAdcData.I.value[1];
+  gDacData.ptrData[2] = &angle_gen.Angle_pu;//&gAdcData.V.value[1];//&gPwmData.Tabc.value[1];
+  gDacData.ptrData[3] = &angle_gen.Angle_pu;//&gAdcData.V.value[2];//
 
   HAL_setDacParameters(halHandle, &gDacData);
 #endif
@@ -327,6 +327,9 @@ void main(void)
   gTorque_Ls_Id_Iq_pu_to_Nm_sf = USER_computeTorque_Ls_Id_Iq_pu_to_Nm_sf();
   gTorque_Flux_Iq_pu_to_Nm_sf = USER_computeTorque_Flux_Iq_pu_to_Nm_sf();
 
+
+  gMotorVars.Flag_enableSys=true;
+  gMotorVars.Flag_Run_Identify=true;
   for(;;)
   {
     // Waiting for enable system flag to be set

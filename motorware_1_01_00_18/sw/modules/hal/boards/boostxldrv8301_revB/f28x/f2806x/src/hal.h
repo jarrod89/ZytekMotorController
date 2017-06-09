@@ -110,12 +110,12 @@ extern "C" {
 
 //! \brief Defines the PWM deadband falling edge delay count (system clocks)
 //!
-#define HAL_PWM_DBFED_CNT         1
+#define HAL_PWM_DBFED_CNT         10
 
 
 //! \brief Defines the PWM deadband rising edge delay count (system clocks)
 //!
-#define HAL_PWM_DBRED_CNT         1
+#define HAL_PWM_DBRED_CNT         10
 
 
 //! \brief Defines the function to turn LEDs off
