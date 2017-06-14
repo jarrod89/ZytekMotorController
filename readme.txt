@@ -5,7 +5,7 @@ Software is a modified version of Texas Instruments "Motorware" which is release
 
 Hardware design is original work and is released under the BSD licence:
 
-Copyright 2007 Jarrod Tuma
+Copyright 2017 Jarrod Tuma
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
 
