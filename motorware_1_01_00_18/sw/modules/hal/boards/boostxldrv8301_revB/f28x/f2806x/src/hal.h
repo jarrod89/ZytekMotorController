@@ -51,11 +51,13 @@
 #include "sw/modules/svgen/src/32b/svgen_current.h"
 
 
+
 //!
 //!
 //! \defgroup HAL HAL
 //!
 //@{
+
 
 
 #ifdef __cplusplus
@@ -113,9 +115,11 @@ extern "C" {
 #define HAL_PWM_DBFED_CNT         10
 
 
+
 //! \brief Defines the PWM deadband rising edge delay count (system clocks)
 //!
 #define HAL_PWM_DBRED_CNT         10
+
 
 
 //! \brief Defines the function to turn LEDs off
@@ -123,14 +127,17 @@ extern "C" {
 #define HAL_turnLedOff            HAL_setGpioHigh
 
 
+
 //! \brief Defines the function to turn LEDs on
 //!
 #define HAL_turnLedOn             HAL_setGpioLow
 
 
+
 //! \brief Defines the function to turn LEDs on
 //!
 #define HAL_toggleLed             HAL_toggleGpio
+
 
 
 // **************************************************************************
@@ -151,6 +158,7 @@ typedef enum
   HAL_Qep_QEP1=0,  //!< Select QEP1
   HAL_Qep_QEP2=1   //!< Select QEP2
 } HAL_QepSelect_e;
+
 
 
 //! \brief Enumeration for the LED numbers
@@ -187,6 +195,7 @@ typedef enum
 #endif
 
 
+
 //! \brief Enumeration for the sensor types
 //!
 typedef enum
@@ -194,6 +203,7 @@ typedef enum
   HAL_SensorType_Current=0,      //!< Enumeration for current sensor
   HAL_SensorType_Voltage         //!< Enumeration for voltage sensor
 } HAL_SensorType_e;
+
 
 
 // **************************************************************************
@@ -226,8 +236,11 @@ static inline void HAL_acqAdcInt(HAL_Handle handle,const ADC_IntNumber_e intNumb
   HAL_Obj *obj = (HAL_Obj *)handle;
 
 
+
+
   // clear the ADC interrupt flag
   ADC_clearIntFlag(obj->adcHandle,intNumber);
+
 
 
   // Acknowledge interrupt from PIE group 10 
@@ -235,6 +248,7 @@ static inline void HAL_acqAdcInt(HAL_Handle handle,const ADC_IntNumber_e intNumb
 
   return;
 } // end of HAL_acqAdcInt() function
+
 
 
 //! \brief     Acknowledges an interrupt from the PWM so that another PWM interrupt can
@@ -246,12 +260,14 @@ static inline void HAL_acqPwmInt(HAL_Handle handle,const PWM_Number_e pwmNumber)
   HAL_Obj *obj = (HAL_Obj *)handle;
 
 
+
   // clear the PWM interrupt flag
   PWM_clearIntFlag(obj->pwmHandle[pwmNumber]);
 
 
   // clear the SOCA flag
   PWM_clearSocAFlag(obj->pwmHandle[pwmNumber]);
+
 
 
   // Acknowledge interrupt from PIE group 3
@@ -269,8 +285,11 @@ static inline void HAL_acqTimer0Int(HAL_Handle handle)
   HAL_Obj *obj = (HAL_Obj *)handle;
 
 
+
+
   // clear the Timer 0 interrupt flag
   TIMER_clearFlag(obj->timerHandle[0]);
+
 
 
   // Acknowledge interrupt from PIE group 1
@@ -278,6 +297,7 @@ static inline void HAL_acqTimer0Int(HAL_Handle handle)
 
   return;
 } // end of HAL_acqTimer0Int() function
+
 
 
 //! \brief      Executes calibration routines
@@ -288,14 +308,17 @@ static inline void HAL_acqTimer0Int(HAL_Handle handle)
 extern void HAL_cal(HAL_Handle handle);
 
 
+
 //! \brief      Disables global interrupts
 //! \param[in]  handle  The hardware abstraction layer (HAL) handle
 extern void HAL_disableGlobalInts(HAL_Handle handle);
 
 
+
 //! \brief      Disables the watch dog
 //! \param[in]  handle  The hardware abstraction layer (HAL) handle
 extern void HAL_disableWdog(HAL_Handle handle);
+
 
 
 //! \brief      Disables the PWM device
@@ -314,6 +337,7 @@ static inline void HAL_disablePwm(HAL_Handle handle)
 
   return;
 } // end of HAL_disablePwm() function
+
 
 
 //! \brief      Enables the ADC interrupts
@@ -363,6 +387,7 @@ static inline void HAL_enablePwm(HAL_Handle handle)
 //! \brief     Enables the PWM interrupt
 //! \param[in] handle  The hardware abstraction layer (HAL) handle
 extern void HAL_enablePwmInt(HAL_Handle handle);
+
 
 
 //! \brief     Enables the Timer 0 interrupt
@@ -463,6 +488,7 @@ static inline _iq HAL_getOffsetBeta_lp_pu(HAL_Handle handle,
 {
   HAL_Obj *obj = (HAL_Obj *)handle;
 
+
   _iq beta_lp_pu = _IQ(0.0);
   
   if(sensorType == HAL_SensorType_Current)
@@ -491,6 +517,7 @@ static inline _iq HAL_getOffsetValue(HAL_Handle handle,
 {
   HAL_Obj *obj = (HAL_Obj *)handle;
 
+
   _iq offset = _IQ(0.0);
   
   if(sensorType == HAL_SensorType_Current)
@@ -516,6 +543,7 @@ static inline _iq HAL_getOffsetValue(HAL_Handle handle,
 static inline _iq HAL_getVoltageScaleFactor(HAL_Handle handle)
 {
   HAL_Obj *obj = (HAL_Obj *)handle;
+
 
   return(obj->voltage_sf);
 } // end of HAL_getVoltageScaleFactor() function
@@ -574,6 +602,7 @@ static inline void HAL_readAdcData(HAL_Handle handle,HAL_AdcData_t *pAdcData)
   //Do the same in HAL_readAdcDataWithOffsets
   _iq current_sf = -HAL_getCurrentScaleFactor(handle);
   _iq voltage_sf = HAL_getVoltageScaleFactor(handle);
+
 
 
   // convert current A
@@ -747,6 +776,7 @@ static inline void HAL_setTimerPeriod(HAL_Handle handle,const uint_least8_t time
 }  // end of HAL_setTimerPeriod() function
 
 
+
 //! \brief     Gets the timer period
 //! \param[in] handle       The hardware abstraction layer (HAL) handle
 //! \param[in] timerNumber  The timer number, 0,1 or 2
@@ -759,6 +789,7 @@ static inline uint32_t HAL_getTimerPeriod(HAL_Handle handle,const uint_least8_t 
 
   return(timerPeriod);
 }  // end of HAL_getTimerPeriod() function
+
 
 
 //! \brief     Sets the ADC SOC sample delay value
@@ -777,6 +808,7 @@ static inline void HAL_setAdcSocSampleDelay(HAL_Handle handle,
 } // end of HAL_setAdcSocSampleDelay() function
 
 
+
 //! \brief     Sets the ADC bias value
 //! \param[in] handle        The hardware abstraction layer (HAL) handle
 //! \param[in] sensorType    The sensor type
@@ -790,6 +822,7 @@ static inline void HAL_setBias(HAL_Handle handle,
   HAL_Obj *obj = (HAL_Obj *)handle;
 
 
+
   if(sensorType == HAL_SensorType_Current)
     {
       obj->adcBias.I.value[sensorNumber] = bias;
@@ -801,6 +834,7 @@ static inline void HAL_setBias(HAL_Handle handle,
 
   return;
 } // end of HAL_setBias() function
+
 
 
 //! \brief      Sets the GPIO pin high
@@ -833,6 +867,7 @@ static inline bool HAL_readGpio(HAL_Handle handle,const GPIO_Number_e gpioNumber
 } // end of HAL_readGpio() function
 
 
+
 //! \brief      Toggles the GPIO pin
 //! \details    Takes in the enumeration GPIO_Number_e and toggles that GPIO
 //!             pin.
@@ -841,6 +876,7 @@ static inline bool HAL_readGpio(HAL_Handle handle,const GPIO_Number_e gpioNumber
 static inline void HAL_toggleGpio(HAL_Handle handle,const GPIO_Number_e gpioNumber)
 {
   HAL_Obj *obj = (HAL_Obj *)handle;
+
 
 
   // set GPIO high
@@ -895,6 +931,7 @@ static inline void HAL_setNumCurrentSensors(HAL_Handle handle,const uint_least8_
 } // end of HAL_setNumCurrentSensors() function
 
 
+
 //! \brief     Sets the number of voltage sensors
 //! \param[in] handle             The hardware abstraction layer (HAL) handle
 //! \param[in] numVoltageSensors  The number of voltage sensors
@@ -907,6 +944,7 @@ static inline void HAL_setNumVoltageSensors(HAL_Handle handle,const uint_least8_
 
   return;
 } // end of HAL_setNumVoltageSensors() function
+
 
 
 //! \brief     Sets the value used to set the low pass filter pole for offset estimation
@@ -934,6 +972,7 @@ static inline void HAL_setOffsetBeta_lp_pu(HAL_Handle handle,
 } // end of HAL_setOffsetBeta_lp_pu() function
 
 
+
 //! \brief     Sets the offset initial condition value for offset estimation
 //! \param[in] handle        The hardware abstraction layer (HAL) handle
 //! \param[in] sensorType    The sensor type
@@ -957,6 +996,7 @@ static inline void HAL_setOffsetInitCond(HAL_Handle handle,
 
   return;
 } // end of HAL_setOffsetInitCond() function
+
 
 
 //! \brief     Sets the initial offset value for offset estimation
@@ -984,6 +1024,7 @@ static inline void HAL_setOffsetValue(HAL_Handle handle,
 } // end of HAL_setOffsetValue() function
 
 
+
 //! \brief     Sets the voltage scale factor in the hardware abstraction layer
 //! \param[in] handle      The hardware abstraction layer (HAL) handle
 //! \param[in] voltage_sf  The voltage scale factor
@@ -997,6 +1038,7 @@ static inline void HAL_setVoltageScaleFactor(HAL_Handle handle,const _iq voltage
 } // end of HAL_setVoltageScaleFactor() function
 
 
+
 //! \brief      Sets the hardware abstraction layer parameters
 //! \details    Sets up the microcontroller peripherals.  Creates all of the scale
 //!             factors for the ADC voltage and current conversions.  Sets the initial
@@ -1006,9 +1048,11 @@ static inline void HAL_setVoltageScaleFactor(HAL_Handle handle,const _iq voltage
 extern void HAL_setParams(HAL_Handle handle,const USER_Params *pUserParams);
 
 
+
 //! \brief      Sets up the ADCs (Analog to Digital Converters)
 //! \param[in]  handle  The hardware abstraction layer (HAL) handle
 extern void HAL_setupAdcs(HAL_Handle handle);
+
 
 
 //! \brief      Sets up the clocks
@@ -1017,9 +1061,11 @@ extern void HAL_setupAdcs(HAL_Handle handle);
 extern void HAL_setupClks(HAL_Handle handle);
 
 
+
 //! \brief     Sets up the FLASH.
 //! \param[in] handle  The hardware abstraction layer (HAL) handle
 extern void HAL_setupFlash(HAL_Handle handle);
+
 
 
 //! \brief     Sets up the GPIO (General Purpose I/O) pins
@@ -1027,9 +1073,11 @@ extern void HAL_setupFlash(HAL_Handle handle);
 extern void HAL_setupGpios(HAL_Handle handle);
 
 
+
 //! \brief     Sets up the peripheral clocks
 //! \param[in] handle  The hardware abstraction layer (HAL) handle
 extern void HAL_setupPeripheralClks(HAL_Handle handle);
+
 
 
 //! \brief     Sets up the PIE (Peripheral Interrupt Expansion)
@@ -1037,10 +1085,12 @@ extern void HAL_setupPeripheralClks(HAL_Handle handle);
 extern void HAL_setupPie(HAL_Handle handle);
 
 
+
 //! \brief     Sets up the PLL (Phase Lock Loop)
 //! \param[in] handle   The hardware abstraction layer (HAL) handle
 //! \param[in] clkFreq  The clock frequency
 extern void HAL_setupPll(HAL_Handle handle,const PLL_ClkFreq_e clkFreq);
+
 
 
 //! \brief     Sets up the PWMs (Pulse Width Modulators)
@@ -1054,9 +1104,11 @@ extern void HAL_setupPwms(HAL_Handle handle,
                    const uint_least16_t numPwmTicksPerIsrTick);
 
 
+
 //! \brief     Sets up the PWM DACs (Pulse Width Modulator Digital to Analof Converters)
 //! \param[in] handle  The hardware abstraction layer (HAL) handle
 extern void HAL_setupPwmDacs(HAL_Handle handle);
+
 
 
 //! \brief     Sets up the QEP peripheral
@@ -1064,14 +1116,17 @@ extern void HAL_setupPwmDacs(HAL_Handle handle);
 extern void HAL_setupQEP(HAL_Handle handle,HAL_QepSelect_e qep);
 
 
+
 //! \brief     Sets up the spiA peripheral
 //! \param[in] handle  The hardware abstraction layer (HAL) handle
 extern void HAL_setupSpiA(HAL_Handle handle);
 
 
+
 //! \brief     Sets up the spiB peripheral
 //! \param[in] handle  The hardware abstraction layer (HAL) handle
 extern void HAL_setupSpiB(HAL_Handle handle);
+
 
 
 //! \brief     Sets up the timers
@@ -1096,10 +1151,11 @@ static inline void HAL_updateAdcBias(HAL_Handle handle)
     {
       bias = HAL_getBias(handle,HAL_SensorType_Current,cnt);
       
-      bias -= OFFSET_getOffset(obj->offsetHandle_I[cnt]);
+      bias += OFFSET_getOffset(obj->offsetHandle_I[cnt]);
 
       HAL_setBias(handle,HAL_SensorType_Current,cnt,bias);
     }
+
 
 
   // update the voltage bias
@@ -1231,6 +1287,7 @@ static inline uint16_t HAL_readPwmCmpB(HAL_Handle handle,const PWM_Number_e pwmN
 {
   HAL_Obj *obj = (HAL_Obj *)handle;
 
+
   // the compare value to be returned
   uint16_t pwmValue;
 
@@ -1238,6 +1295,7 @@ static inline uint16_t HAL_readPwmCmpB(HAL_Handle handle,const PWM_Number_e pwmN
 
   return(pwmValue);
 } // end of HAL_readPwmCmpB() function
+
 
 
 //! \brief     Reads PWM period register
@@ -1255,6 +1313,7 @@ static inline uint16_t HAL_readPwmPeriod(HAL_Handle handle,const PWM_Number_e pw
 
   return(pwmPeriodValue);
 } // end of HAL_readPwmPeriod() function
+
 
 
 //! \brief     Set trigger point in the middle of the low side pulse
@@ -1387,9 +1446,11 @@ void HAL_AdcCalChanSelect(HAL_Handle handle, const ADC_SocChanNumber_e chanNumbe
 uint16_t HAL_AdcCalConversion(HAL_Handle handle);
 
 
+
 //! \brief     Executes the offset calibration of the ADC
 //! \param[in] handle     The hardware abstraction layer (HAL) handle
 void HAL_AdcOffsetSelfCal(HAL_Handle handle);
+
 
 
 //! \brief     Converts coarse and fine oscillator trim values into a single 16bit word value
@@ -1403,6 +1464,7 @@ uint16_t HAL_getOscTrimValue(int16_t coarse, int16_t fine);
 //! \brief     Executes the oscillator 1 and 2 calibration functions
 //! \param[in] handle     The hardware abstraction layer (HAL) handle
 void HAL_OscTempComp(HAL_Handle handle);
+
 
 
 //! \brief     Executes the oscillator 1 calibration based on input sample
@@ -1431,6 +1493,7 @@ void HAL_readDrvData(HAL_Handle handle, DRV_SPI_8301_Vars_t *Spi_8301_Vars);
 //! \param[in] handle         The hardware abstraction layer (HAL) handle
 //! \param[in] Spi_8301_Vars  SPI variables
 void HAL_setupDrvSpi(HAL_Handle handle, DRV_SPI_8301_Vars_t *Spi_8301_Vars);
+
 
 
 //! \brief     Writes DAC data to the PWM comparators for DAC (digital-to-analog conversion) output
