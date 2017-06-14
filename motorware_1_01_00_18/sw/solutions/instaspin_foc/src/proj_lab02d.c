@@ -124,6 +124,9 @@ DRV_SPI_8301_Vars_t gDrvSpi8301Vars;
 DRV_SPI_8305_Vars_t gDrvSpi8305Vars;
 #endif
 
+#ifndef F2802xF
+HAL_DacData_t gDacData;
+#endif
 // **************************************************************************
 // the functions
 
@@ -210,6 +213,21 @@ void main(void)
   // set the default controller parameters
   CTRL_setParams(ctrlHandle,&gUserParams);
 
+#ifndef F2802xF
+  // set DAC parameters
+
+//  gDacData.ptrData[0] = &gPwmData.Tabc.value[0];
+//  gDacData.ptrData[1] = &gPwmData.Tabc.value[1];
+//  gDacData.ptrData[2] = &gPwmData.Tabc.value[2];
+//  gDacData.ptrData[3] = &gAdcData.V.value[0];
+
+  gDacData.ptrData[0] = &gAdcData.I.value[0];//
+  gDacData.ptrData[1] = &gAdcData.I.value[1];//
+  gDacData.ptrData[2] = &gAdcData.I.value[2];//&gAdcData.V.value[1];//&gPwmData.Tabc.value[1];
+  gDacData.ptrData[3] = &gPwmData.Tabc.value[0];//&gAdcData.dcBus;//value[0];//
+
+  HAL_setDacParameters(halHandle, &gDacData);
+#endif
 
   // setup faults
   HAL_setupFaults(halHandle);
@@ -446,6 +464,16 @@ interrupt void mainISR(void)
 
   // setup the controller
   CTRL_setup(ctrlHandle);
+
+#ifndef F2802xF
+  // connect inputs of the PWMDAC module.
+  gDacData.value[0] = (*gDacData.ptrData[0]);   //
+  gDacData.value[1] = (*gDacData.ptrData[1]);   //
+  gDacData.value[2] = (*gDacData.ptrData[2]);   //
+  gDacData.value[3] = (*gDacData.ptrData[3]);   //
+
+  HAL_writeDacData(halHandle,&gDacData);
+#endif
 
 
   return;

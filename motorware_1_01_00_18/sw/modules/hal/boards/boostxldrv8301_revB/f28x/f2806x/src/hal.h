@@ -570,7 +570,9 @@ static inline void HAL_readAdcData(HAL_Handle handle,HAL_AdcData_t *pAdcData)
   HAL_Obj *obj = (HAL_Obj *)handle;
 
   _iq value;
-  _iq current_sf = HAL_getCurrentScaleFactor(handle);
+  //Add or remove the negative from current_sf = - HAL_getCurrentScaleFactor to change current feedback polarity
+  //Do the same in HAL_readAdcDataWithOffsets
+  _iq current_sf = -HAL_getCurrentScaleFactor(handle);
   _iq voltage_sf = HAL_getVoltageScaleFactor(handle);
 
 
@@ -626,7 +628,7 @@ static inline void HAL_readAdcDataWithOffsets(HAL_Handle handle,HAL_AdcData_t *p
   HAL_Obj *obj = (HAL_Obj *)handle;
 
   _iq value;
-  _iq current_sf = HAL_getCurrentScaleFactor(handle);
+  _iq current_sf = -HAL_getCurrentScaleFactor(handle);
   _iq voltage_sf = HAL_getVoltageScaleFactor(handle);
 
 

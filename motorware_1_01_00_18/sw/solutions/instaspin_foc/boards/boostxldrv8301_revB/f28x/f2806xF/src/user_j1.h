@@ -70,22 +70,24 @@ extern "C" {
 //! \brief WARNING: if you know the value of your Bemf constant, and you know you are operating at a multiple speed due to field weakening, be sure to set this value higher than the expected Bemf voltage
 //! \brief It is recommended to start with a value ~3x greater than the USER_ADC_FULL_SCALE_VOLTAGE_V and increase to 4-5x if scenarios where a Bemf calculation may exceed these limits
 //! \brief This value is also used to calculate the minimum flux value: USER_IQ_FULL_SCALE_VOLTAGE_V/USER_EST_FREQ_Hz/0.7
-#define USER_IQ_FULL_SCALE_VOLTAGE_V      (330.0)   // 24.0 Example for boostxldrv8301_revB typical usage and the Anaheim motor
+#define USER_IQ_FULL_SCALE_VOLTAGE_V      (250)//349.7)   // 24.0 Example for boostxldrv8301_revB typical usage and the Anaheim motor
 
 //! \brief Defines the maximum voltage at the input to the AD converter
 //! \brief The value that will be represented by the maximum ADC input (3.3V) and conversion (0FFFh)
 //! \brief Hardware dependent, this should be based on the voltage sensing and scaling to the ADC input
-#define USER_ADC_FULL_SCALE_VOLTAGE_V       (330.0)      // 26.314 boostxldrv8301_revB voltage scaling
+#define USER_ADC_FULL_SCALE_VOLTAGE_V       (349.7)      // 26.314 boostxldrv8301_revB voltage scaling
 
 //! \brief Defines the full scale current for the IQ variables, A
 //! \brief All currents are converted into (pu) based on the ratio to this value
 //! \brief WARNING: this value MUST be larger than the maximum current readings that you are expecting from the motor or the reading will roll over to 0, creating a control issue
-#define USER_IQ_FULL_SCALE_CURRENT_A         (89) // 20.0 Example for boostxldrv8301_revB typical usage
+//peak value. must be >=USER_ADC_FULL_SCALE_CURRENT_A / 2
+#define USER_IQ_FULL_SCALE_CURRENT_A         (86.5) // 20.0 Example for boostxldrv8301_revB typical usage
 
 //! \brief Defines the maximum current at the AD converter
 //! \brief The value that will be represented by the maximum ADC input (3.3V) and conversion (0FFFh)
 //! \brief Hardware dependent, this should be based on the current sensing and scaling to the ADC input
-#define USER_ADC_FULL_SCALE_CURRENT_A        (173)  // 33.0 boostxldrv8301_revB current scaling
+//Peak to peak! ie +/-80A = 160A
+#define USER_ADC_FULL_SCALE_CURRENT_A        (173.0)  // 33.0 boostxldrv8301_revB current scaling
 
 //! \brief Defines the number of current sensors used
 //! \brief Defined by the hardware capability present
@@ -99,16 +101,22 @@ extern "C" {
 //! \brief ADC current offsets for A, B, and C phases
 //! \brief One-time hardware dependent, though the calibration can be done at run-time as well
 //! \brief After initial board calibration these values should be updated for your specific hardware so they are available after compile in the binary to be loaded to the controller
-#define   I_A_offset    (0.8331743479)
-#define   I_B_offset    (0.8355930448)
-#define   I_C_offset    (0.8392037153)
+/*#define   I_A_offset    (-0.8331743479)
+#define   I_B_offset    (-0.8355930448)
+#define   I_C_offset    (-0.8392037153)*/
+#define   I_A_offset    (3.005488575)
+#define   I_B_offset    (3.002038658)
+#define   I_C_offset    (3.011958957)
 
 //! \brief ADC voltage offsets for A, B, and C phases
 //! \brief One-time hardware dependent, though the calibration can be done at run-time as well
 //! \brief After initial board calibration these values should be updated for your specific hardware so they are available after compile in the binary to be loaded to the controller
-#define   V_A_offset    (0.5271264911)
+/*#define   V_A_offset    (0.5271264911)
 #define   V_B_offset    (0.5257175565)
-#define   V_C_offset    (0.5249399543)
+#define   V_C_offset    (0.5249399543)*/
+#define   V_A_offset    (0.336416)
+#define   V_B_offset    (0.333773)
+#define   V_C_offset    (0.328339)
 
 
 //! \brief CLOCKS & TIMERS
@@ -157,12 +165,12 @@ extern "C" {
 
 //! \brief Defines the number of controller clock ticks per speed controller clock tick
 //! \brief Relationship of controller clock rate to speed loop rate
-#define USER_NUM_CTRL_TICKS_PER_SPEED_TICK  (13)   // 15 Typical to match PWM, ex: 15KHz PWM, controller, and current loop, 1KHz speed loop
+#define USER_NUM_CTRL_TICKS_PER_SPEED_TICK  (10)   // 15 Typical to match PWM, ex: 15KHz PWM, controller, and current loop, 1KHz speed loop
 
 //! \brief Defines the number of controller clock ticks per trajectory clock tick
 //! \brief Relationship of controller clock rate to trajectory loop rate
 //! \brief Typically the same as the speed rate
-#define USER_NUM_CTRL_TICKS_PER_TRAJ_TICK   (13)   // 15 Typical to match PWM, ex: 10KHz controller & current loop, 1KHz speed loop, 1 KHz Trajectory
+#define USER_NUM_CTRL_TICKS_PER_TRAJ_TICK   (10)   // 15 Typical to match PWM, ex: 10KHz controller & current loop, 1KHz speed loop, 1 KHz Trajectory
 
 
 //! \brief LIMITS
@@ -175,7 +183,7 @@ extern "C" {
 //! \brief Defines the R/L estimation frequency, Hz
 //! \brief User higher values for low inductance motors and lower values for higher inductance
 //! \brief motors.  The values can range from 100 to 300 Hz.
-#define USER_R_OVER_L_EST_FREQ_Hz (300)               // 300 Default
+#define USER_R_OVER_L_EST_FREQ_Hz (100)               // 300 Default
 
 //! \brief Defines the low speed limit for the flux integrator, pu
 //! \brief This is the speed range (CW/CCW) at which the ForceAngle object is active, but only if Enabled
@@ -192,7 +200,7 @@ extern "C" {
 // **************************************************************************
 //! \brief Defines the analog voltage filter pole location, Hz
 //! \brief Must match the hardware filter for Vph
-#define USER_VOLTAGE_FILTER_POLE_Hz  (550.0)   // 364.682, value for boostxldrv8301_revB hardware
+#define USER_VOLTAGE_FILTER_POLE_Hz  (538.5)   // 364.682, value for boostxldrv8301_revB hardware
 
 
 //! \brief USER MOTOR & ID SETTINGS
@@ -235,12 +243,12 @@ extern "C" {
 #define USER_MOTOR_TYPE                MOTOR_Type_Pm
 #define USER_MOTOR_NUM_POLE_PAIRS       (4)
 #define USER_MOTOR_Rr                   (NULL)
-#define USER_MOTOR_Rs                   (0.01)
-#define USER_MOTOR_Ls_d                 (0.000160)
+#define USER_MOTOR_Rs                   (0.018)
+#define USER_MOTOR_Ls_d                 (0.000136)
 #define USER_MOTOR_Ls_q                 (USER_MOTOR_Ls_d)
-#define USER_MOTOR_RATED_FLUX           (0.293)
+#define USER_MOTOR_RATED_FLUX           (0.3155)
 #define USER_MOTOR_MAGNETIZING_CURRENT  (NULL)
-#define USER_MOTOR_RES_EST_CURRENT      (6.0)
+#define USER_MOTOR_RES_EST_CURRENT      (4.0)
 #define USER_MOTOR_IND_EST_CURRENT      (-2.0)
 #define USER_MOTOR_MAX_CURRENT          (20.0)
 #define USER_MOTOR_FLUX_EST_FREQ_Hz     (20.0)

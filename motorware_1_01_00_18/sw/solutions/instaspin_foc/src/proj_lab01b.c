@@ -253,10 +253,10 @@ void main(void)
 //  gDacData.ptrData[2] = &gPwmData.Tabc.value[2];
 //  gDacData.ptrData[3] = &gAdcData.V.value[0];
 
-  gDacData.ptrData[0] = &angle_gen.Angle_pu;//
-  gDacData.ptrData[1] = &angle_gen.Angle_pu;//&gAdcData.V.value[0];//&gAdcData.I.value[1];
-  gDacData.ptrData[2] = &angle_gen.Angle_pu;//&gAdcData.V.value[1];//&gPwmData.Tabc.value[1];
-  gDacData.ptrData[3] = &angle_gen.Angle_pu;//&gAdcData.V.value[2];//
+  gDacData.ptrData[0] = &gAdcData.V.value[0];//&angle_gen.Angle_pu;//
+  gDacData.ptrData[1] = &gAdcData.V.value[1];//
+  gDacData.ptrData[2] = &gAdcData.V.value[2];//&gAdcData.V.value[1];//&gPwmData.Tabc.value[1];
+  gDacData.ptrData[3] = &gAdcData.I.value[0];//&gAdcData.dcBus;//value[0];//
 
   HAL_setDacParameters(halHandle, &gDacData);
 #endif
