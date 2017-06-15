@@ -957,13 +957,13 @@ void HAL_setupAdcs(HAL_Handle handle)
 #else
   //configure the SOCs for boostxldrv8301_revB on J1 Connection
   // EXT IA-FB
-  ADC_setSocChanNumber(obj->adcHandle,ADC_SocNumber_0,ADC_SocChanNumber_A1);
+  ADC_setSocChanNumber(obj->adcHandle,ADC_SocNumber_0,ADC_SocChanNumber_A0);
   ADC_setSocTrigSrc(obj->adcHandle,ADC_SocNumber_0,ADC_SocTrigSrc_EPWM1_ADCSOCA);
   ADC_setSocSampleDelay(obj->adcHandle,ADC_SocNumber_0,ADC_SocSampleDelay_9_cycles);
 
   // EXT IA-FB
   // Duplicate conversion due to ADC Initial Conversion bug (SPRZ342)
-  ADC_setSocChanNumber(obj->adcHandle,ADC_SocNumber_1,ADC_SocChanNumber_A1);
+  ADC_setSocChanNumber(obj->adcHandle,ADC_SocNumber_1,ADC_SocChanNumber_A0);
   ADC_setSocTrigSrc(obj->adcHandle,ADC_SocNumber_1,ADC_SocTrigSrc_EPWM1_ADCSOCA);
   ADC_setSocSampleDelay(obj->adcHandle,ADC_SocNumber_1,ADC_SocSampleDelay_9_cycles);
 
@@ -973,7 +973,7 @@ void HAL_setupAdcs(HAL_Handle handle)
   ADC_setSocSampleDelay(obj->adcHandle,ADC_SocNumber_2,ADC_SocSampleDelay_9_cycles);
 
   // EXT IC-FB
-  ADC_setSocChanNumber(obj->adcHandle,ADC_SocNumber_3,ADC_SocChanNumber_A0);
+  ADC_setSocChanNumber(obj->adcHandle,ADC_SocNumber_3,ADC_SocChanNumber_A1);
   ADC_setSocTrigSrc(obj->adcHandle,ADC_SocNumber_3,ADC_SocTrigSrc_EPWM1_ADCSOCA);
   ADC_setSocSampleDelay(obj->adcHandle,ADC_SocNumber_3,ADC_SocSampleDelay_9_cycles);
 
@@ -1752,9 +1752,9 @@ void HAL_setDacParameters(HAL_Handle handle, HAL_DacData_t *pDacData)
 
 	pDacData->PeriodMax = PWMDAC_getPeriod(obj->pwmDacHandle[PWMDAC_Number_1]);
 
-	pDacData->offset[0] = _IQ(0.5);
-	pDacData->offset[1] = _IQ(0.5);
-	pDacData->offset[2] = _IQ(0.5);
+	pDacData->offset[0] = _IQ(0.0);
+	pDacData->offset[1] = _IQ(0.0);
+	pDacData->offset[2] = _IQ(0.0);
 	pDacData->offset[3] = _IQ(0.0);
 
 	pDacData->gain[0] = _IQ(1.0);

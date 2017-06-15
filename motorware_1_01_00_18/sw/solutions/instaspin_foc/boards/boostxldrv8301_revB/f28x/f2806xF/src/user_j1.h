@@ -70,7 +70,7 @@ extern "C" {
 //! \brief WARNING: if you know the value of your Bemf constant, and you know you are operating at a multiple speed due to field weakening, be sure to set this value higher than the expected Bemf voltage
 //! \brief It is recommended to start with a value ~3x greater than the USER_ADC_FULL_SCALE_VOLTAGE_V and increase to 4-5x if scenarios where a Bemf calculation may exceed these limits
 //! \brief This value is also used to calculate the minimum flux value: USER_IQ_FULL_SCALE_VOLTAGE_V/USER_EST_FREQ_Hz/0.7
-#define USER_IQ_FULL_SCALE_VOLTAGE_V      (250)//349.7)   // 24.0 Example for boostxldrv8301_revB typical usage and the Anaheim motor
+#define USER_IQ_FULL_SCALE_VOLTAGE_V      (349.7)   // 24.0 Example for boostxldrv8301_revB typical usage and the Anaheim motor
 
 //! \brief Defines the maximum voltage at the input to the AD converter
 //! \brief The value that will be represented by the maximum ADC input (3.3V) and conversion (0FFFh)
@@ -81,13 +81,13 @@ extern "C" {
 //! \brief All currents are converted into (pu) based on the ratio to this value
 //! \brief WARNING: this value MUST be larger than the maximum current readings that you are expecting from the motor or the reading will roll over to 0, creating a control issue
 //peak value. must be >=USER_ADC_FULL_SCALE_CURRENT_A / 2
-#define USER_IQ_FULL_SCALE_CURRENT_A         (86.5) // 20.0 Example for boostxldrv8301_revB typical usage
+#define USER_IQ_FULL_SCALE_CURRENT_A         (173.0) // 20.0 Example for boostxldrv8301_revB typical usage
 
 //! \brief Defines the maximum current at the AD converter
 //! \brief The value that will be represented by the maximum ADC input (3.3V) and conversion (0FFFh)
 //! \brief Hardware dependent, this should be based on the current sensing and scaling to the ADC input
 //Peak to peak! ie +/-80A = 160A
-#define USER_ADC_FULL_SCALE_CURRENT_A        (173.0)  // 33.0 boostxldrv8301_revB current scaling
+#define USER_ADC_FULL_SCALE_CURRENT_A        (346.0)  // 33.0 boostxldrv8301_revB current scaling
 
 //! \brief Defines the number of current sensors used
 //! \brief Defined by the hardware capability present
@@ -104,9 +104,9 @@ extern "C" {
 /*#define   I_A_offset    (-0.8331743479)
 #define   I_B_offset    (-0.8355930448)
 #define   I_C_offset    (-0.8392037153)*/
-#define   I_A_offset    (3.005488575)
-#define   I_B_offset    (3.002038658)
-#define   I_C_offset    (3.011958957)
+#define   I_A_offset    (-1.0096)
+#define   I_B_offset    (-0.9966)
+#define   I_C_offset    (-1.0026)
 
 //! \brief ADC voltage offsets for A, B, and C phases
 //! \brief One-time hardware dependent, though the calibration can be done at run-time as well
@@ -114,9 +114,9 @@ extern "C" {
 /*#define   V_A_offset    (0.5271264911)
 #define   V_B_offset    (0.5257175565)
 #define   V_C_offset    (0.5249399543)*/
-#define   V_A_offset    (0.336416)
-#define   V_B_offset    (0.333773)
-#define   V_C_offset    (0.328339)
+#define   V_A_offset    (0.1675)
+#define   V_B_offset    (0.1658)
+#define   V_C_offset    (0.1659)
 
 
 //! \brief CLOCKS & TIMERS
@@ -243,10 +243,10 @@ extern "C" {
 #define USER_MOTOR_TYPE                MOTOR_Type_Pm
 #define USER_MOTOR_NUM_POLE_PAIRS       (4)
 #define USER_MOTOR_Rr                   (NULL)
-#define USER_MOTOR_Rs                   (0.018)
-#define USER_MOTOR_Ls_d                 (0.000136)
+#define USER_MOTOR_Rs                   (0.0455)
+#define USER_MOTOR_Ls_d                 (0.000206)
 #define USER_MOTOR_Ls_q                 (USER_MOTOR_Ls_d)
-#define USER_MOTOR_RATED_FLUX           (0.3155)
+#define USER_MOTOR_RATED_FLUX           (0.326)
 #define USER_MOTOR_MAGNETIZING_CURRENT  (NULL)
 #define USER_MOTOR_RES_EST_CURRENT      (4.0)
 #define USER_MOTOR_IND_EST_CURRENT      (-2.0)
