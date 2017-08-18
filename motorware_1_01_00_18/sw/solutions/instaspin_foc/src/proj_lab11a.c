@@ -152,6 +152,8 @@ DRV_SPI_8301_Vars_t gDrvSpi8301Vars;
 DRV_SPI_8305_Vars_t gDrvSpi8305Vars;
 #endif
 
+HAL_DacData_t gDacData;
+
 _iq gFlux_pu_to_Wb_sf;
 
 _iq gFlux_pu_to_VpHz_sf;
@@ -421,6 +423,8 @@ void main(void)
   CPU_USAGE_setParams(cpu_usageHandle,
 		  	  	  	  HAL_getTimerPeriod(halHandle,1),     // timer period, cnts
                      (uint32_t)USER_ISR_FREQ_Hz);                  // average over 1 second of ISRs
+
+  HAL_setDacParameters(halHandle, &gDacData);
 
   // setup faults
   HAL_setupFaults(halHandle);
@@ -700,7 +704,8 @@ interrupt void mainISR(void)
           pidCntSpeed = 0;
 
           // Set new min and max for the speed controller output
-          PID_setMinMax(pidHandle[0], -Iq_Max_pu, Iq_Max_pu);
+//          PID_setMinMax(pidHandle[0], -Iq_Max_pu, Iq_Max_pu);
+          PID_setMinMax(pidHandle[0], _IQ(0.0), Iq_Max_pu);//don't allow negative current from speed control. should prevent overvoltage on DC power supply
 
           // run speed controller
           PID_run_spd(pidHandle[0],TRAJ_getIntValue(trajHandle_spd),speed_pu,&(gIdq_ref_pu.value[1]));
@@ -786,6 +791,17 @@ interrupt void mainISR(void)
 
   // run field weakening
   if(USER_MOTOR_TYPE == MOTOR_Type_Pm) runFieldWeakening();
+
+#ifndef F2802xF
+  // connect inputs of the PWMDAC module.
+  gDacData.value[0] = gAdcData.I.value[0];
+  gDacData.value[1] = gIdq_ref_pu.value[0];
+  gDacData.value[2] = speed_pu;
+  gDacData.value[3] = angle_pu;
+
+  // run PwmDAC
+  HAL_writeDacData(halHandle,&gDacData);
+#endif
 
   // read the timer 1 value and update the CPU usage module
   timer1Cnt = HAL_readTimerCnt(halHandle,1);

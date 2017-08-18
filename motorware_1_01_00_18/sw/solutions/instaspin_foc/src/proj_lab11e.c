@@ -405,7 +405,8 @@ void main(void)
     pidHandle[3] = PID_init(&pid[3],sizeof(pid[3]));
 
     PID_setGains(pidHandle[0],_IQ(0.2),_IQ(0.005),_IQ(0.0));
-    PID_setMinMax(pidHandle[0],-maxCurrent_pu,maxCurrent_pu);
+   // PID_setMinMax(pidHandle[0],-maxCurrent_pu,maxCurrent_pu);
+    PID_setMinMax(pidHandle[0],_IQ(0.0),maxCurrent_pu);
     PID_setUi(pidHandle[0],_IQ(0.0));
     pidCntSpeed = 0;
 
@@ -587,6 +588,8 @@ void main(void)
                // enable the PWM
                HAL_enablePwm(halHandle);
 			}
+		   else
+		       HAL_enablePwm_BLDC(halHandle);
 
             // set trajectory target for speed reference
             TRAJ_setTargetValue(trajHandle_spd,_IQmpy(gMotorVars.SpeedRef_krpm, gSpeed_krpm_to_pu_sf));
@@ -810,7 +813,8 @@ interrupt void mainISR(void)
           pidCntSpeed = 0;
 
           // Set new min and max for the speed controller output
-          PID_setMinMax(pidHandle[0], -Iq_Max_pu, Iq_Max_pu);
+          //PID_setMinMax(pidHandle[0], -Iq_Max_pu, Iq_Max_pu);
+          PID_setMinMax(pidHandle[0], _IQ(0.0), Iq_Max_pu);
 
           // run speed controller
           PID_run_spd(pidHandle[0],TRAJ_getIntValue(trajHandle_spd),speed_pu, &speed_pid_out);

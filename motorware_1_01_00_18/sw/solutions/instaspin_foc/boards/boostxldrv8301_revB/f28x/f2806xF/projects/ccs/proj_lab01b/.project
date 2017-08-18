@@ -112,6 +112,11 @@
 			<locationURI>MW_INSTALL_DIR/sw/ide/ccs/ccs5/targetConfigs/TMS320F28069_xds100v2.ccxml</locationURI>
 		</link>
 		<link>
+			<name>TMS320F28069_xds100v3.ccxml</name>
+			<type>1</type>
+			<locationURI>MW_INSTALL_DIR/sw/ide/ccs/ccs5/targetConfigs/TMS320F28069_xds100v2.ccxml</locationURI>
+		</link>
+		<link>
 			<name>adc.c</name>
 			<type>1</type>
 			<locationURI>MW_INSTALL_DIR/sw/drivers/adc/src/32b/f28x/f2806x/adc.c</locationURI>

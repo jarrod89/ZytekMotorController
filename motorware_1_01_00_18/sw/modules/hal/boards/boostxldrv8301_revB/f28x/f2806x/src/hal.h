@@ -179,9 +179,9 @@ typedef enum
 //!
 typedef enum
 {
-  HAL_HallGpio_A=GPIO_Number_20,  //!< GPIO pin number for Hall Sensor A
+  HAL_HallGpio_A=GPIO_Number_23,  //!< GPIO pin number for Hall Sensor A
   HAL_HallGpio_B=GPIO_Number_21,  //!< GPIO pin number for Hall Sensor B
-  HAL_HallGpio_C=GPIO_Number_23   //!< GPIO pin number for Hall Sensor C
+  HAL_HallGpio_C=GPIO_Number_20   //!< GPIO pin number for Hall Sensor C
 } HAL_HallGpio_e;
 #else
 //! \brief Enumeration for the Hall GPIO numbers
@@ -382,13 +382,20 @@ static inline void HAL_enablePwm(HAL_Handle handle)
 
   return;
 } // end of HAL_enablePwm() function
+static inline void HAL_enablePwm_BLDC(HAL_Handle handle)
+{
+  HAL_Obj *obj = (HAL_Obj *)handle;
+  // set GPIO high
+  GPIO_setHigh(obj->gpioHandle,(GPIO_Number_e)HAL_Gpio_drv_en);
 
+  return;
+} // end of HAL_enablePwm() function
 
 //! \brief     Enables the PWM interrupt
 //! \param[in] handle  The hardware abstraction layer (HAL) handle
 extern void HAL_enablePwmInt(HAL_Handle handle);
 
-
+extern void HAL_enablePwm_BLDC(HAL_Handle handle);
 
 //! \brief     Enables the Timer 0 interrupt
 //! \param[in] handle  The hardware abstraction layer (HAL) handle

@@ -1752,8 +1752,8 @@ void HAL_setDacParameters(HAL_Handle handle, HAL_DacData_t *pDacData)
 
 	pDacData->PeriodMax = PWMDAC_getPeriod(obj->pwmDacHandle[PWMDAC_Number_1]);
 
-	pDacData->offset[0] = _IQ(0.0);
-	pDacData->offset[1] = _IQ(0.0);
+	pDacData->offset[0] = _IQ(0.5);
+	pDacData->offset[1] = _IQ(0.5);
 	pDacData->offset[2] = _IQ(0.0);
 	pDacData->offset[3] = _IQ(0.0);
 
